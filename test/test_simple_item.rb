@@ -9,7 +9,6 @@ class TestSimpleItem < Test::Unit::TestCase
 
     assert_not_nil t
     assert_raise(Dagen::Item::MethodNotImplementedException) { t.give_me_data() }
-
   end
 
 end
