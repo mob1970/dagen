@@ -1,0 +1,19 @@
+Dagen (Not ended yet)
+=======
+
+## DESCRIPTION
+
+Dagen is a gem built for helping to generate testing data for your database.
+
+
+## INSTALLATION
+
+### RubyGems
+
+    $ [sudo] gem install dagen
+
+### GitHub
+
+    $ git clone git://github.com/mob1970/dagen.git
+    $ cd dagen && gem build dagen.gemspec
+    $ gem install dagen-<version>.gem
