@@ -1,6 +1,9 @@
+# Done because RubyMine has a bug which doesn't allow to set LOAD_PATH values
+$LOAD_PATH.push("~/Development/dagen/lib/dagen/")
+
 require "test/unit"
 
-require '../lib/dagen/items/simple_item'
+require 'items/simple_item'
 
 class TestSimpleItem < Test::Unit::TestCase
 

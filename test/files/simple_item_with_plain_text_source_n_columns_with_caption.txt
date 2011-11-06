@@ -1,0 +1,6 @@
+id;name;province_id
+1;Barcelona;1
+2;Badalona;1
+3;Sant Cugat del Vallès;1
+4;Blanes;2
+5;Loret;2

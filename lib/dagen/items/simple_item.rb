@@ -2,6 +2,7 @@ module Dagen
 
   module Item
 
+    class PathNotProvidedException < Exception; end
     class NotEnoughValuesException < Exception; end
     class IncorrectValueException < Exception; end
     class MethodNotImplementedException < Exception; end
@@ -20,7 +21,7 @@ module Dagen
       #
       #
       #
-      def give_me_data()
+      def give_me_data(value_to_use=nil)
         raise MethodNotImplementedException.new()
       end
 

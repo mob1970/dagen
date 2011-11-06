@@ -10,10 +10,12 @@ module Dagen
       ##
       #
       #
-      def initialize(file_path, titles_in_first_line=false, values_separator=nil)
+      def initialize(file_path, titles_in_first_line=false, separator=nil)
+        super()
+        raise PathNotProvidedException.new() if !file_path
         @file_path = file_path
         @titles_in_first_line = titles_in_first_line
-        @values_separator = values_separator
+        @separator = separator
         load_data()
       end
 
@@ -22,9 +24,24 @@ module Dagen
       #
       def load_data()
         @source = Array.new()
+        first_line = @titles_in_first_line
         File.open(@file_path).each_line do |line|
-          @source << format_data(line)
+          if first_line
+            @column_titles = line.chomp().split(@separator)
+            first_line = false
+          else
+            @source << format_data(line)
+          end
         end
+      end
+
+      ##
+      #
+      #
+      def give_me_data(value_to_use=nil)
+        raise IncorrectValueException.new() if !value_to_use =~ /\d+/
+        raise NotEnoughValuesException.new() if value_to_use && value_to_use.to_i >= @source.length
+        @source[value_to_use ? value_to_use.to_i : @random.rand(@source.length-1)]
       end
 
       protected
@@ -33,19 +50,21 @@ module Dagen
       #
       #
       def format_data(line)
-        if line[@values_separator]
-          values = line.strip().split(@values_separator)
+        if @separator && line[@separator]
+          values = line.chomp().strip().split(@separator)
+        else
+          values = [line.chomp().strip()]
         end
-        line.chomp().strip()
-      end
 
-      ##
-      #
-      #
-      def give_me_data(value_to_use=nil)
-        raise IncorrectValueException.new() if value_to_use !~ /\d+/
-        raise NotEnoughValuesException.new() if value_to_use && value_to_use.to_i >= line.length
-        line[value_to_use ? value_to_use : @random.rand(line.length-1)]
+        if @column_titles
+          result = Hash.new()
+          (0...@column_titles.length).each do |index|
+            result[@column_titles[index]] = values[index]
+          end
+          result
+        else
+          line.chomp().strip()
+        end
       end
 
     end
