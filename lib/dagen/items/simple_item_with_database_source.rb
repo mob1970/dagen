@@ -9,8 +9,9 @@ module Dagen
       ##
       #
       #
-      def initialize(connection)
+      def initialize(connection, sql_sentence)
         @connection = connection
+        @sql_sentence = sql_sentence
       end
 
       ##

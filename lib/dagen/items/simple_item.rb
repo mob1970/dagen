@@ -6,6 +6,7 @@ module Dagen
     class NotEnoughValuesException < Exception; end
     class IncorrectValueException < Exception; end
     class MethodNotImplementedException < Exception; end
+    class NullParameterException < Exception; end
 
     class SimpleItem
 
