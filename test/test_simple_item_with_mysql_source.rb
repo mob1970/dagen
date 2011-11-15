@@ -2,14 +2,18 @@
 $LOAD_PATH.push("~/Development/dagen/lib/dagen/")
 
 require "test/unit"
-require 'specialized_items/simple_item_with_sqlite3_source'
+require 'specialized_items/simple_item_with_mysql_source'
+require 'mysql2'
 
-class TestSimpleItemWithSqlite3Source < Test::Unit::TestCase
+class TestSimpleItemWithMysqlSource < Test::Unit::TestCase
 
   def test_select_by_id()
-    connection = SQLite3::Database.new('files/sqlite3_test_database.db')
+    connection = Mysql2::Client.new(:host => 'localhost',
+                                    :username => 'test_user',
+                                    :password => 'test_user',
+                                    :database => 'dagen_test')
     sql_sentence = 'select * from cities where id = ?'
-    item = Dagen::SpecializedItem::SimpleItemWithSqlite3Source.new(connection, sql_sentence)
+    item = Dagen::SpecializedItem::SimpleItemWithMysqlSource.new(connection, sql_sentence)
 
     values = item.give_me_data(1)
     assert_equal "Badalona", values[0]['name']
